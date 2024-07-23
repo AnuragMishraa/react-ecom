@@ -1,50 +1,53 @@
 import {
-  GET_ORDERS,
-  SEARCH_ORDER,
-  SEARCH_ORDER_SUCCESS,
+  ADD_ORDER_SUCCESS,
+  EDIT_ORDER_SUCCESS,
   GET_ORDERS_SUCCESS,
-  REMOVE_ORDER,
-  REMOVE_ORDER_SUCCESS,
-} from "@/constants/constants";
+  REMOVE_ORDER_SUCCESS
+} from '@/constants/constants';
 
 const initState = {
   lastRefKey: null,
   total: 0,
-  items: [],
-  searchedOrders: {
-    lastRefKey: null,
-    total: 0,
-    items: [],
-  },
+  items: []
 };
 
-const orderReducer = (state = { ...initState }, action) => {
+export default (state = {
+  lastRefKey: null,
+  total: 0,
+  items: [],
+}, action) => {
   switch (action.type) {
     case GET_ORDERS_SUCCESS:
       return {
         ...state,
         lastRefKey: action.payload.lastKey,
         total: action.payload.total,
-        items: [...state.items, ...action.payload.orders],
+        items: [...state.items, ...action.payload.orders]
       };
-    case SEARCH_ORDER_SUCCESS:
+    case ADD_ORDER_SUCCESS:
       return {
         ...state,
-        searchedOrders: {
-          lastRefKey: action.payload.lastKey,
-          total: action.payload.total,
-          items: [...state.searchedOrders.items, ...action.payload.orders],
-        },
+        items: [...state.items, action.payload]
       };
-    case GET_ORDERS:
-    case SEARCH_ORDER:
-    case REMOVE_ORDER:
     case REMOVE_ORDER_SUCCESS:
-      // You can handle these actions if needed
-      return state;
+      return {
+        ...state,
+        items: state.items.filter((order) => order.id !== action.payload)
+      };
+    case EDIT_ORDER_SUCCESS:
+      return {
+        ...state,
+        items: state.items.map((order) => {
+          if (order.id === action.payload.id) {
+            return {
+              ...order,
+              ...action.payload.updates
+            };
+          }
+          return order;
+        })
+      };
     default:
       return state;
   }
 };
-
-export default orderReducer;

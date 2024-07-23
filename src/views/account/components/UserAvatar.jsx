@@ -18,7 +18,7 @@ const UserNav = () => {
   const dispatch = useDispatch();
 
   const toggleDropdown = (e) => {
-    const closest = e.target.closest('div.user-nav');
+    const closest = e.target?.closest('div.user-nav');
 
     try {
       if (!closest && userNav.current.classList.contains('user-sub-open')) {

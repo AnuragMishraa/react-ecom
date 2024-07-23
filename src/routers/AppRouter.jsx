@@ -5,6 +5,7 @@ import { createBrowserHistory } from 'history';
 import React from 'react';
 import { Route, Router, Switch } from 'react-router-dom';
 import * as view from '@/views';
+import Orders from '@/views/admin/orders/index.jsx';
 import AdminRoute from './AdminRoute';
 import ClientRoute from './ClientRoute';
 import PublicRoute from './PublicRoute';
@@ -93,7 +94,7 @@ const AppRouter = () => (
           path={ROUTES.ADMIN_PRODUCTS}
         />
         <AdminRoute
-          component={view.Orders}
+          component={Orders}
           path={ROUTES.ADMIN_ORDERS}
         />
         <AdminRoute

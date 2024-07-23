@@ -1,17 +1,53 @@
 import {
+  ADD_ORDER,
+  ADD_ORDER_SUCCESS,
+  EDIT_ORDER,
+  EDIT_ORDER_SUCCESS,
   GET_ORDERS,
-  SEARCH_ORDER,
-  SEARCH_ORDER_SUCCESS,
   GET_ORDERS_SUCCESS,
   REMOVE_ORDER,
-  REMOVE_ORDER_SUCCESS,
-} from "@/constants/constants";
+  REMOVE_ORDER_SUCCESS
+} from '@/constants/constants';
 
-export const getOrder = (lastRef) => ({
+export const getOrders = (lastRef) => ({
   type: GET_ORDERS,
   payload: lastRef
 });
 
-export const getOrderSuccess = (orders) => ({
+export const getOrdersSuccess = (orders) => ({
+  type: GET_ORDERS_SUCCESS,
+  payload: orders
+});
 
+export const addOrder = (order) => ({
+  type: ADD_ORDER,
+  payload: order
+});
+
+export const addOrderSuccess = (order) => ({
+  type: ADD_ORDER_SUCCESS,
+  payload: order
+});
+
+export const removeOrder = (id) => ({
+  type: REMOVE_ORDER,
+  payload: id
+});
+
+export const removeOrderSuccess = (id) => ({
+  type: REMOVE_ORDER_SUCCESS,
+  payload: id
+});
+
+export const editOrder = (id, updates) => ({
+  type: EDIT_ORDER,
+  payload: {
+    id,
+    updates
+  }
+});
+
+export const editOrderSuccess = (updates) => ({
+  type: EDIT_ORDER_SUCCESS,
+  payload: updates
 });
