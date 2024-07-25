@@ -81,7 +81,7 @@ const Navigation = (props) => {
       </div>
       <div className="mobile-navigation-sec">
         <div className="mobile-navigation-search">
-            <SearchBar />
+            <SearchBar placeholder={'Search Sethji...'}/>
         </div>
         <FiltersToggle>
             <button className="button-muted button-small" type="button">

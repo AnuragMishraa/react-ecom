@@ -9,7 +9,6 @@ import userReducer from './userReducer';
 import orderReducer from './orderReducer';
 
 const rootReducer = {
-  orders: orderReducer,
   products: productReducer,
   basket: basketReducer,
   auth: authReducer,
@@ -17,7 +16,8 @@ const rootReducer = {
   filter: filterReducer,
   users: userReducer,
   checkout: checkoutReducer,
-  app: miscReducer
+  app: miscReducer,
+  orders: orderReducer
 };
 
 export default rootReducer;

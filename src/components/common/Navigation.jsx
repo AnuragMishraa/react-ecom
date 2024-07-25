@@ -110,7 +110,7 @@ const Navigation = () => {
             </button>
           </FiltersToggle>
         )}
-        <SearchBar />
+        <SearchBar placeholder={'Search Sethji...'}/>
         <ul className="navigation-menu">
           <li className="navigation-menu-item">
             <BasketToggle>

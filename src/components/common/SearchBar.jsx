@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { clearRecentSearch, removeSelectedRecent } from '@/redux/actions/filterActions';
 
-const SearchBar = () => {
+const SearchBar = ({ placeholder }) => {
   const [searchInput, setSearchInput] = useState('');
   const { filter, isLoading } = useSelector((state) => ({
     filter: state.filter,
@@ -73,7 +73,7 @@ const SearchBar = () => {
           onChange={onSearchChange}
           onKeyUp={onKeyUp}
           onFocus={onFocusInput}
-          placeholder="Search product..."
+          placeholder={placeholder}
           readOnly={isLoading}
           type="text"
           value={searchInput}

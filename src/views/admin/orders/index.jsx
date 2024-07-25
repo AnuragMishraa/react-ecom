@@ -1,40 +1,47 @@
-import React, { useEffect } from 'react';
+// src/views/admin/orders/index.jsx
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import OrdersNavbar from '../components/OrderNavbar';
+import OrdersTable from '../components/OrdersTable';
+import OrderDetailsPanel from '../components/OrdersDetailsPanel';
 import { getOrders } from '@/redux/actions/orderActions';
 
-const OrdersComponent = () => {
+const Orders = () => {
   const dispatch = useDispatch();
-  const { items: orders, loading, error } = useSelector(state => state.orders);
+  const { items: orders, total, loading } = useSelector((state) => state.orders);
+  const [filteredOrders, setFilteredOrders] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   useEffect(() => {
     dispatch(getOrders());
   }, [dispatch]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  useEffect(() => {
+    setFilteredOrders(orders);
+  }, [orders]);
+
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+    setIsPanelOpen(true);
+  };
+
+  const handleClosePanel = () => {
+    setSelectedProduct(null);
+    setIsPanelOpen(false);
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
-      <h1>Orders</h1>
-      <ul>
-        {orders.map(order => (
-          <li key={order.id}>
-            <p>Address: {order.address}</p>
-            <p>Order Notes: {order.orderNotes}</p>
-            <div>Products:</div>
-            <ul>
-              {order.products.map(product => (
-                <li key={product.productId}>
-                  {product.productName} - {product.productPrice}
-                </li>
-              ))}
-            </ul>
-            <div>Search Tags: {order.search_tags ? order.search_tags.join(', ') : 'No tags available'}</div>
-          </li>
-        ))}
-      </ul>
+      <OrdersNavbar ordersCount={filteredOrders.length} totalOrdersCount={total} />
+      <OrdersTable filteredOrders={filteredOrders} onProductClick={handleProductClick} />
+      <OrderDetailsPanel product={selectedProduct} isOpen={isPanelOpen} onClose={handleClosePanel} />
     </div>
   );
 };
 
-export default OrdersComponent;
+export default Orders;

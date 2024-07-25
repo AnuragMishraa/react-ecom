@@ -272,25 +272,21 @@ class Firebase {
 
   getOrders = async () => {
     const ordersSnapshot = await this.db.collection('orders').get();
-    const orders = ordersSnapshot.docs.map(doc => {
-      const data = doc.data();
-      return {
-        id: doc.id,
-        ...data,
-        search_tags: data.search_tags || [] // Default to an empty array if search_tags is null or undefined
-      };
-    });
+    const orders = ordersSnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
     const lastKey = ordersSnapshot.docs[ordersSnapshot.docs.length - 1];
     const total = ordersSnapshot.docs.length;
 
     return { orders, lastKey, total };
   };
-
+  
   updateOrder = (id, updates) => this.db.collection("orders").doc(id).update(updates);
 
   deleteOrder = (id) => this.db.collection("orders").doc(id).delete();
 
-  getOrders = () => this.db.collection("orders").get();
+  generateKey = () => this.db.collection('orders').doc().id;
 }
 
 const firebaseInstance = new Firebase();
