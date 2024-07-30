@@ -47,7 +47,7 @@ const Home = () => {
               <ArrowRightOutlined />
             </Link>
           </div>
-          <div className="banner-img"><img src={bannerImg} alt="" /></div>
+          <div className="banner-img"><img src={bannerImg} alt="" style={{ }}/></div>
         </div>
         <div className="display">
           <div className="display-header">

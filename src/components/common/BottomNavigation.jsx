@@ -1,34 +1,41 @@
 import React from 'react';
 import {
-  Link, NavLink, useLocation
+  NavLink
 } from 'react-router-dom';
 import * as ROUTE from '@/constants/routes';
-import { FontSizeOutlined, HomeOutlined, ShopOutlined } from '@ant-design/icons';
+import { HomeOutlined, ShoppingOutlined, ShoppingCartOutlined, ThunderboltOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { BasketToggle } from "@/components/basket";
+import Badge from "./Badge";
 
-const BottomNavigation = () => {
-  const navigationItems = [
-    { icon: 'home', link: '/', title: 'Home' },
-    { icon: 'search', link: '/search', title: 'Search' },
-    { icon: 'user', link: '/profile', title: 'Profile' },
-  ];
+const BottomNavigation = (props) => {
+  const { basketLength, disabledPaths } = props;
+  const pathname = window.location.pathname;
 
   return (
     <div className="bottom-navigation">
       <ul className="bottom-navigation-menu">
-        {/* {navigationItems.map((item) => (
-          <li key={item.title} className="bottom-navigation-item">
-            <Link to={item.link} className="bottom-navigation-link">
-              <div className="bottom-navigation-icon">
-                <i className={`fa fa-${item.icon}`} />
-              </div>
-              <span className="bottom-navigation-title">{item.title}</span>
-            </Link>
-          </li>
-        ))} */}
-        <li><NavLink activeClassName="bottom-navigation-item" exact to={ROUTE.HOME}><HomeOutlined style={{fontSize: '25px'}}/></NavLink></li>
-        <li><NavLink activeClassName="bottom-navigation-item" to={ROUTE.SHOP}><ShopOutlined style={{fontSize: '25px'}}/></NavLink></li>
-        <li><NavLink activeClassName="bottom-navigation-item" to={ROUTE.FEATURED_PRODUCTS}>Featured</NavLink></li>
-        <li><NavLink activeClassName="bottom-navigation-item" to={ROUTE.RECOMMENDED_PRODUCTS}>Recommended</NavLink></li>
+        <li><NavLink exact activeClassName="active" to={ROUTE.HOME}><HomeOutlined style={{fontSize: '35px'}}/>Home</NavLink></li>
+        <li><NavLink activeClassName="active" to={ROUTE.SHOP}><ShoppingOutlined style={{fontSize: '35px'}}/>Shop</NavLink></li>
+        <li>
+          <BasketToggle>
+            {({ onClickToggle }) => (
+              <button
+                className="button-link navigation-menu-link basket-toggle"
+                style={{ color: '#FF8C00'}}
+                disabled={disabledPaths.includes(pathname)}
+                onClick={onClickToggle}
+                type="button"
+              >
+                <Badge count={basketLength}>
+                  <ShoppingCartOutlined style={{ fontSize: "40px" }} />
+                  Cart
+                </Badge>
+              </button>
+            )}
+          </BasketToggle>
+        </li>
+        <li><NavLink activeClassName="active" to={ROUTE.FEATURED_PRODUCTS}><ThunderboltOutlined style={{fontSize: '35px'}}/>Feat</NavLink></li>
+        <li><NavLink activeClassName="active" to={ROUTE.RECOMMENDED_PRODUCTS}><CheckCircleOutlined style={{fontSize: '35px'}}/>Assured</NavLink></li>
       </ul>
     </div>
   );

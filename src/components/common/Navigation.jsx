@@ -74,9 +74,9 @@ const Navigation = () => {
     ROUTE.FORGOT_PASSWORD
   ];
 
-  if (store.user && store.user.role === 'ADMIN') {
-    return null;
-  } 
+  // if (store.user && store.user.role === 'ADMIN') {
+  //   return null;
+  // } 
   if (isDesktop) {
       return (
         <>
@@ -94,7 +94,7 @@ const Navigation = () => {
   return (
       <nav className="navigation" ref={navbar}>
         <div className="logo">
-          <Link onClick={onClickLink} to="/"><img alt="Logo" src={logo} style={{width: '180px'}}/></Link>
+          <Link onClick={onClickLink} to="/"><img alt="Logo" src={logo} style={{width: '10  0px'}}/></Link>
         </div>
         <ul className="navigation-menu-main">
           <li><NavLink activeClassName="navigation-menu-active" exact to={ROUTE.HOME}>Home</NavLink></li>
