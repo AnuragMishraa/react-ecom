@@ -98,3 +98,39 @@
   height: 100%;
   object-fit: contain;
 }
+// src/components/orders/OrderItem.scss
+.item-orders {
+  display: flex;
+  flex-direction: column;
+
+  .grid {
+    display: flex;
+    align-items: center;
+
+    .grid-col {
+      padding: 10px;
+    }
+
+    .product-images {
+      display: flex;
+      flex-wrap: wrap;
+
+      img {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .item-action {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+
+    .button {
+      margin-left: 10px;
+    }
+  }
+}
