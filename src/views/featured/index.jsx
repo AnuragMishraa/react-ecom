@@ -2,7 +2,11 @@ import { MessageDisplay } from '@/components/common';
 import { ProductShowcaseGrid } from '@/components/product';
 import { useDocumentTitle, useFeaturedProducts, useScrollTop } from '@/hooks';
 import bannerImg from '@/images/banner-guy.jpeg';
+import bannerImg2 from '@/images/discount2.jpg';
+import bannerImg3 from '@/images/discount3.jpg';
 import React from 'react';
+
+const images = [bannerImg, bannerImg2, bannerImg3];
 
 const FeaturedProducts = () => {
   useDocumentTitle("Featured Products | Sethji's");
