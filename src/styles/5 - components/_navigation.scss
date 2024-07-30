@@ -40,6 +40,7 @@
 
   .searchbar {
     width: 300px;
+    border-radius: 20px;
   }
 }
 
@@ -92,7 +93,7 @@
 .navigation-action {
   display: flex;
   align-items: center;
-  margin-left: $xxl-size;
+  // margin-left: $xxl-size;
 }
 
 .navigation-menu-link {
