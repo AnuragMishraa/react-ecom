@@ -16,23 +16,35 @@ import bannerImg from "@/images/banner-girl.jpg";
 import React from "react";
 import bannerImg2 from "@/images/discount2.jpg";
 import bannerImg3 from "@/images/discount3.jpg";
+import bannerImg4 from "@/images/discount4.jpeg";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-const images = [bannerImg, bannerImg2, bannerImg3];
+const images = [bannerImg, bannerImg2, bannerImg3,bannerImg4];
 
 const Home = () => {
   useDocumentTitle("Sethji's Online Grocery Store  | Home");
   useScrollTop();
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const maxIndex = isMobile ? images.length - 1 : Math.ceil(images.length / 3) - 1;
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % (maxIndex + 1));
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isMobile]);
 
   const goToSlide = (index) => {
     setCurrentIndex(index);
@@ -55,37 +67,19 @@ const Home = () => {
     <main className="content">
       <div className="home">
         <div className="banner">
-          <div className="banner-desc">
-            <h1 className="text-thin">
-              <strong>Shop Smart,</strong>
-              <br />
-              {/* &nbsp;Goodness Delivered&nbsp; */}
-              <strong>Eat Fresh!</strong>
-            </h1>
-            <p>
-              Your one-stop destination for premium groceries delivered to your
-              doorstep. Discover a curated selection of fresh produce, pantry
-              staples, and gourmet delights.
-            </p>
-            <br />
-            <Link to={SHOP} className="button">
-              Shop Now &nbsp;
-              <ArrowRightOutlined />
-            </Link>
-          </div>
-          <div className="carousel">
-            {images.map((image, index) => (
-              <div
-                key={index}
-                className={`carousel-slide ${
-                  index === currentIndex ? "active" : ""
-                }`}
-              >
-                <img src={image} alt={`Banner ${index + 1}`} />
-              </div>
-            ))}
+        <div className="carousel">
+            <div className="carousel-track" style={{ transform: `translateX(-${currentIndex * (isMobile ? 100 : 33.33)}%)` }}>
+              {images.map((image, index) => (
+                <div
+                  key={index}
+                  className={`carousel-slide`}
+                >
+                  <img src={image} alt={`Banner ${index + 1}`} />
+                </div>
+              ))}
+            </div>
             <div className="carousel-dots">
-              {images.map((_, index) => (
+              {Array.from({ length: Math.ceil(images.length / (isMobile ? 1 : 3)) }).map((_, index) => (
                 <span
                   key={index}
                   className={`dot ${index === currentIndex ? "active" : ""}`}
